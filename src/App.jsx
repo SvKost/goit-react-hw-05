@@ -4,9 +4,22 @@ import MoviesPage from "./pages/MoviesPage/MoviesPage";
 import MovieDetailsPage from "./pages/MovieDetailsPage/MovieDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import { NavLink, Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { getTrendingMovies } from "./services/movies-api";
 
 function App() {
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    const getMovies = async () => {
+      const response = await getTrendingMovies();
+      console.log(response);
+    };
+
+    getMovies();
+  }, []);
+
   return (
     <div>
       <nav className={css.nav}>
