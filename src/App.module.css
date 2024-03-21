@@ -1,0 +1,23 @@
+#root {
+  /* margin: 0 auto; */
+  /* padding: 1rem; */
+  /* text-align: center; */
+}
+
+.nav {
+  display: flex;
+  gap: 10px;
+}
+
+.link {
+  color: black;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.active {
+  color: orange;
+}
