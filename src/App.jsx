@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     const getMovies = async () => {
       const response = await getTrendingMovies();
-      console.log(response);
+      setMovies(response);
     };
 
     getMovies();
@@ -26,9 +26,15 @@ function App() {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/movies">Movies</NavLink>
       </nav>
+      {/* 
+      <ul>
+        {movies.map((movie) => {
+          return <li key={movie.id}>{movie.title}</li>;
+        })}
+      </ul> */}
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage movies={movies} />} />
         <Route path="/movies" element={<MoviesPage />} />
         <Route path="/movieDetails/:movieId" element={<MovieDetailsPage />} />
         <Route path="*" element={<NotFoundPage />} />
