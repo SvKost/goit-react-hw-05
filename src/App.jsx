@@ -5,8 +5,9 @@ import MovieDetailsPage from "./pages/MovieDetailsPage/MovieDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import { NavLink, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { getTrendingMovies } from "./services/movies-api";
+import MovieReviews from "./components/MovieReviews/MovieReviews";
+import MovieCast from "./components/MovieCast/MovieCast";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -26,17 +27,17 @@ function App() {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/movies">Movies</NavLink>
       </nav>
-      {/* 
-      <ul>
-        {movies.map((movie) => {
-          return <li key={movie.id}>{movie.title}</li>;
-        })}
-      </ul> */}
 
       <Routes>
         <Route path="/" element={<HomePage movies={movies} />} />
         <Route path="/movies" element={<MoviesPage />} />
         <Route path="/movieDetails/:movieId" element={<MovieDetailsPage />} />
+        <Route
+          path="/movieDetails/:movieId/reviews"
+          element={<MovieReviews />}
+        />
+        <Route path="/movieDetails/:movieId/cast" element={<MovieCast />} />
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
