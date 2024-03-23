@@ -1,6 +1,4 @@
-import { NavLink, Route, Routes } from "react-router-dom";
-import MovieDetailsPage from "../MovieDetailsPage/MovieDetailsPage";
-import NotFoundPage from "../NotFoundPage/NotFoundPage";
+import { NavLink } from "react-router-dom";
 
 const HomePage = ({ movies }) => {
   return (
@@ -10,7 +8,7 @@ const HomePage = ({ movies }) => {
         {movies.map((movie) => {
           return (
             <li key={movie.id}>
-              <NavLink to="/movieDetails/${movie.id}" key={movie.id}>
+              <NavLink to={`/movies/${movie.id}`} key={movie.id}>
                 {movie.title}
               </NavLink>
             </li>

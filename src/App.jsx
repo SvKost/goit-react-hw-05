@@ -5,41 +5,48 @@ import MovieDetailsPage from "./pages/MovieDetailsPage/MovieDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import { NavLink, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getTrendingMovies } from "./services/movies-api";
+import { fetchMovieById, fetchTrendingMovies } from "./services/movies-api";
 import MovieReviews from "./components/MovieReviews/MovieReviews";
 import MovieCast from "./components/MovieCast/MovieCast";
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [movieDetails, setMovieDetails] = useState("");
 
   useEffect(() => {
     const getMovies = async () => {
-      const response = await getTrendingMovies();
+      const response = await fetchTrendingMovies();
       setMovies(response);
     };
 
     getMovies();
   }, []);
 
+  // useEffect(() => {
+  //   const getMovieDetails = async () => {
+  //     const response = await fetchMovieById();
+  //     setMovieDetails(response);
+  //   };
+
+  //   getMovieDetails();
+  // });
+
   return (
     <div>
-      <nav className={css.nav}>
+      <header className={css.header}>
         <NavLink to="/">Home</NavLink>
         <NavLink to="/movies">Movies</NavLink>
-      </nav>
+      </header>
 
-      <Routes>
-        <Route path="/" element={<HomePage movies={movies} />} />
-        <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/movieDetails/:movieId" element={<MovieDetailsPage />} />
-        <Route
-          path="/movieDetails/:movieId/reviews"
-          element={<MovieReviews />}
-        />
-        <Route path="/movieDetails/:movieId/cast" element={<MovieCast />} />
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage movies={movies} />} />
+          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies/:movieId" element={<MovieDetailsPage />} />
 
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </main>
     </div>
   );
 }
