@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { fetchMoviesByQuery } from "../../services/movies-api";
 import toast, { Toaster } from "react-hot-toast";
-import { NavLink } from "react-router-dom";
+import MovieList from "../../components/MovieList/MovieList";
+import { useSearchParams } from "react-router-dom";
 
 const MoviesPage = () => {
   const [movieData, setMovieData] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get("query");
+
+  // const [savedMovieData, setSavedMovieData] = useState(null);
 
   const notify = () =>
     toast("Please enter your query!", {
@@ -21,21 +25,20 @@ const MoviesPage = () => {
     if (!input.value.trim()) {
       notify();
     } else {
-      setSearchQuery(input.value);
+      setSearchParams({ query: input.value });
     }
-
     form.reset();
   };
 
   useEffect(() => {
+    if (searchQuery === null) return;
+
     const getMovieDetails = async () => {
       const response = await fetchMoviesByQuery(searchQuery);
       setMovieData(response);
     };
 
-    {
-      searchQuery !== "" && getMovieDetails();
-    }
+    getMovieDetails();
   }, [setMovieData, searchQuery]);
 
   return (
@@ -46,19 +49,9 @@ const MoviesPage = () => {
       </form>
       <Toaster />
 
-      <ul>
-        {movieData !== null &&
-          movieData.length !== 0 &&
-          movieData.map((movie) => {
-            return (
-              <li key={movie.id}>
-                <NavLink to={`/movies/${movie.id}`} key={movie.id}>
-                  {movie.title}
-                </NavLink>
-              </li>
-            );
-          })}
-      </ul>
+      {movieData !== null && movieData.length !== 0 && (
+        <MovieList data={movieData} />
+      )}
     </div>
   );
 };

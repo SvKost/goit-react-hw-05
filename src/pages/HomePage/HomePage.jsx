@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import { fetchTrendingMovies } from "../../services/movies-api";
+import MovieList from "../../components/MovieList/MovieList";
 
 const HomePage = () => {
   const [movies, setMovies] = useState(null);
@@ -17,19 +17,7 @@ const HomePage = () => {
   return (
     <div>
       <h1>Tranding Today</h1>
-      <ul>
-        {movies !== null &&
-          movies !== 0 &&
-          movies.map((movie) => {
-            return (
-              <li key={movie.id}>
-                <NavLink to={`/movies/${movie.id}`} key={movie.id}>
-                  {movie.title}
-                </NavLink>
-              </li>
-            );
-          })}
-      </ul>
+      {movies !== null && movies.length !== 0 && <MovieList data={movies} />}
     </div>
   );
 };

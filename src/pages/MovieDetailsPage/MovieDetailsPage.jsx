@@ -1,12 +1,20 @@
-import { NavLink, Route, Routes, useParams } from "react-router-dom";
+import {
+  NavLink,
+  Route,
+  Routes,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import MovieCast from "../../components/MovieCast/MovieCast";
 import MovieReviews from "../../components/MovieReviews/MovieReviews";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { fetchMovieById } from "../../services/movies-api";
+import BackLink from "../../components/BackLink/BackLink";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
-
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? "/movies";
   const [movieDetails, setMovieDetails] = useState(null);
 
   useEffect(() => {
@@ -22,9 +30,11 @@ const MovieDetailsPage = () => {
     <div>
       {movieDetails !== null && movieDetails.length !== 0 && (
         <div>
-          <NavLink to="/">
+          <BackLink to={backLinkHref}>Back</BackLink>
+
+          {/* <NavLink to={backlinkRef}>
             <button>Go back</button>
-          </NavLink>
+          </NavLink> */}
           <div>
             <img
               src={`https://image.tmdb.org/t/p/w500/${movieDetails.backdrop_path}`}

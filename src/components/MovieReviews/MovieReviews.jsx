@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
-  console.log(movieId);
 
   const [movieReviews, setMovieReviews] = useState(null);
 
