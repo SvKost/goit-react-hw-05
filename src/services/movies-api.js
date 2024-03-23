@@ -38,4 +38,3 @@ export const fetchMoviesByQuery = async (query) => {
   );
   return response.data.results;
 };
-// https://api.themoviedb.org/3/search/movie?query=lion&include_adult=false&language=en-US&page=1&api_key=782df108fbec866d431240e30dcb2e3e
