@@ -34,11 +34,12 @@ const MovieDetailsPage = () => {
         <p>{movieDetails.overview}</p>
 
         <h3>Genres</h3>
-        <p>
-          {movieDetails.genres.map((genre) => (
-            <li key={genre.id}>{genre.name}</li>
-          ))}
-        </p>
+        <div>
+          {movieDetails.genres &&
+            movieDetails.genres.map((genre) => (
+              <li key={genre.id}>{genre.name}</li>
+            ))}
+        </div>
       </div>
       <div>
         <p>Additional information</p>
