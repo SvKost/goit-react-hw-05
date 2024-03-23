@@ -2,13 +2,18 @@ import { NavLink, Route, Routes, useParams } from "react-router-dom";
 import MovieCast from "../../components/MovieCast/MovieCast";
 import MovieReviews from "../../components/MovieReviews/MovieReviews";
 import { useEffect, useState } from "react";
-import { fetchCredits, fetchMovieById } from "../../services/movies-api";
+import {
+  fetchCredits,
+  fetchMovieById,
+  fetchReviews,
+} from "../../services/movies-api";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
 
   const [movieDetails, setMovieDetails] = useState(null);
   const [movieCredits, setMovieCredits] = useState(null);
+  const [movieReviews, setMovieReviews] = useState(null);
 
   useEffect(() => {
     const getMovieDetails = async () => {
@@ -23,10 +28,18 @@ const MovieDetailsPage = () => {
     const getMovieCredits = async () => {
       const response = await fetchCredits(movieId);
       setMovieCredits(response);
-      console.log(response);
     };
 
     getMovieCredits();
+  }, [movieId]);
+
+  useEffect(() => {
+    const getMovieReviews = async () => {
+      const response = await fetchReviews(movieId);
+      setMovieReviews(response);
+    };
+
+    getMovieReviews();
   }, [movieId]);
 
   return (
@@ -66,7 +79,10 @@ const MovieDetailsPage = () => {
                 path="cast"
                 element={<MovieCast movieCredits={movieCredits} />}
               />
-              <Route path="reviews" element={<MovieReviews />} />
+              <Route
+                path="reviews"
+                element={<MovieReviews movieReviews={movieReviews} />}
+              />
             </Routes>
           </div>
         </div>
