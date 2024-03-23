@@ -1,12 +1,29 @@
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { fetchCredits } from "../../services/movies-api";
+import { useState } from "react";
 
-const MovieCast = ({ movieCredits }) => {
-  // const { movieId } = useParams();
-  // console.log(movieId);
+const MovieCast = () => {
+  const { movieId } = useParams();
+  console.log(movieId);
+
+  const [movieCredits, setMovieCredits] = useState(null);
+
+  useEffect(() => {
+    const getMovieCredits = async () => {
+      const response = await fetchCredits(movieId);
+      setMovieCredits(response);
+    };
+
+    getMovieCredits();
+  }, [movieId]);
+
   return (
     <div>
+      <p>cast</p>
       <ul>
-        {movieCredits.cast !== null &&
+        {movieCredits !== null &&
+          movieCredits !== 0 &&
           movieCredits.cast.map((item) => (
             <li key={item.id}>
               <img
