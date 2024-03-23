@@ -19,7 +19,6 @@ const MovieCast = () => {
 
   return (
     <div>
-      <p>cast</p>
       <ul>
         {movieCredits !== null &&
           movieCredits.length !== 0 &&

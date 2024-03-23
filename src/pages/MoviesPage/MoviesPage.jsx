@@ -7,10 +7,10 @@ const MoviesPage = () => {
   const [movieData, setMovieData] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // const notify = () =>
-  //   toast("Please enter your query!", {
-  //     position: "top-right",
-  //   });
+  const notify = () =>
+    toast("Please enter your query!", {
+      position: "top-right",
+    });
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -18,7 +18,11 @@ const MoviesPage = () => {
     const form = evt.target;
     const { input } = form.elements;
 
-    setSearchQuery(input.value);
+    if (!input.value.trim()) {
+      notify();
+    } else {
+      setSearchQuery(input.value);
+    }
 
     form.reset();
   };
@@ -27,10 +31,11 @@ const MoviesPage = () => {
     const getMovieDetails = async () => {
       const response = await fetchMoviesByQuery(searchQuery);
       setMovieData(response);
-      console.log(response);
     };
 
-    getMovieDetails();
+    {
+      searchQuery !== "" && getMovieDetails();
+    }
   }, [setMovieData, searchQuery]);
 
   return (
@@ -39,6 +44,7 @@ const MoviesPage = () => {
         <input type="text" name="input" />
         <button type="submit">Search</button>
       </form>
+      <Toaster />
 
       <ul>
         {movieData !== null &&
