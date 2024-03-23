@@ -17,4 +17,10 @@ export const fetchMovieById = async (movieId) => {
   );
   return response.data;
 };
-// https://api.themoviedb.org/3/movie/4560?language=en-US&api_key=782df108fbec866d431240e30dcb2e3e
+
+export const fetchCredits = async (movieId) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US&api_key=782df108fbec866d431240e30dcb2e3e`
+  );
+  return response.data;
+};

@@ -33,8 +33,10 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage movies={movies} />} />
           <Route path="/movies" element={<MoviesPage />} />
-          <Route path="/movies/:movieId" element={<MovieDetailsPage />} />
-
+          <Route path="/movies/:movieId/*" element={<MovieDetailsPage />}>
+            <Route path="cast" element={<MovieCast />} />
+            <Route path="reviews" element={<MovieReviews />} />
+          </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
