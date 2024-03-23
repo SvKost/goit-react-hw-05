@@ -11,9 +11,10 @@ export const fetchTrendingMovies = async () => {
   return response.data.results;
 };
 
-export const fetchMovieById = async () => {
+export const fetchMovieById = async (movieId) => {
   const response = await axios.get(
-    "https://api.themoviedb.org/3/movie/359410?append_to_response=title&language=en-US&api_key=782df108fbec866d431240e30dcb2e3e"
+    `https://api.themoviedb.org/3/movie/${movieId}?language=en-US&api_key=782df108fbec866d431240e30dcb2e3e`
   );
-  return response;
+  return response.data;
 };
+// https://api.themoviedb.org/3/movie/4560?language=en-US&api_key=782df108fbec866d431240e30dcb2e3e

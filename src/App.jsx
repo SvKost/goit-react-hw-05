@@ -22,15 +22,6 @@ function App() {
     getMovies();
   }, []);
 
-  // useEffect(() => {
-  //   const getMovieDetails = async () => {
-  //     const response = await fetchMovieById();
-  //     setMovieDetails(response);
-  //   };
-
-  //   getMovieDetails();
-  // });
-
   return (
     <div>
       <header className={css.header}>
