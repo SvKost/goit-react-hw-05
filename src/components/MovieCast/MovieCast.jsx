@@ -5,7 +5,6 @@ import { useState } from "react";
 
 const MovieCast = () => {
   const { movieId } = useParams();
-  console.log(movieId);
 
   const [movieCredits, setMovieCredits] = useState(null);
 
@@ -23,7 +22,7 @@ const MovieCast = () => {
       <p>cast</p>
       <ul>
         {movieCredits !== null &&
-          movieCredits !== 0 &&
+          movieCredits.length !== 0 &&
           movieCredits.cast.map((item) => (
             <li key={item.id}>
               <img
