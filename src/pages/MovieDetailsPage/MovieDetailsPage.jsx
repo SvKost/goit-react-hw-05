@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import MovieCast from "../../components/MovieCast/MovieCast";
 import MovieReviews from "../../components/MovieReviews/MovieReviews";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchMovieById } from "../../services/movies-api";
 import BackLink from "../../components/BackLink/BackLink";
 
