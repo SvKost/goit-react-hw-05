@@ -1,12 +1,8 @@
-import { NavLink, Route, Routes } from "react-router-dom";
+import "./App.css";
 import { Suspense, lazy } from "react";
-
-// import HomePage from "./pages/HomePage/HomePage";
-// import MoviesPage from "./pages/MoviesPage/MoviesPage";
-// import MovieDetailsPage from "./pages/MovieDetailsPage/MovieDetailsPage";
-// import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
-// import MovieReviews from "./components/MovieReviews/MovieReviews";
-// import MovieCast from "./components/MovieCast/MovieCast";
+import { Loader } from "./components/Loader/Loader";
+import { Route, Routes } from "react-router-dom";
+import Layout from "./pages/Layout/Layout";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage"));
@@ -19,18 +15,10 @@ const MovieReviews = lazy(() =>
 );
 const MovieCast = lazy(() => import("./components/MovieCast/MovieCast"));
 
-import css from "./App.module.css";
-import { Loader } from "./components/Loader/Loader";
-
 function App() {
   return (
     <div>
-      <header className={css.header}>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/movies">Movies</NavLink>
-      </header>
-
-      <main>
+      <Layout>
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -42,7 +30,7 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
-      </main>
+      </Layout>
     </div>
   );
 }
