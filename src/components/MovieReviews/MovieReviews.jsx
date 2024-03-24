@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { fetchReviews } from "../../services/movies-api";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { Loader } from "../Loader/Loader";
 
 const MovieReviews = () => {
+  const { movieId } = useParams();
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? "/movies";
   const [movieReviews, setMovieReviews] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const { movieId } = useParams();
 
   useEffect(() => {
     if (!movieId) return;
@@ -35,18 +39,18 @@ const MovieReviews = () => {
 
   return (
     <div>
-      <ul>
-        {movieReviews !== null && movieReviews.length !== 0 ? (
-          movieReviews.map((review) => (
-            <li key={review.id}>
-              <p>Author: {review.author}</p>
-              <p>{review.content}</p>
+      {isLoading && <Loader />}
+      {isError && <ErrorMessage message={isError} />}
+      {movieReviews !== null && movieReviews.length !== 0 && (
+        <ul>
+          {movieReviews.map(({ id, author, content }) => (
+            <li key={id}>
+              <h3>Author: {author}</h3>
+              <p>{content}</p>
             </li>
-          ))
-        ) : (
-          <p>Sorry, there are no reviews for this film.</p>
-        )}
-      </ul>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

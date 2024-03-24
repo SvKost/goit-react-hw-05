@@ -10,6 +10,8 @@ import MovieReviews from "../../components/MovieReviews/MovieReviews";
 import { useEffect, useState } from "react";
 import { fetchMovieById } from "../../services/movies-api";
 import BackLink from "../../components/BackLink/BackLink";
+import { Loader } from "../../components/Loader/Loader";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -40,6 +42,8 @@ const MovieDetailsPage = () => {
   return (
     <div>
       <BackLink to={backLinkHref}>Back</BackLink>
+      {isLoading && <Loader />}
+      {isError && <ErrorMessage message={isError} />}
       {movieDetails !== null && movieDetails.length !== 0 && (
         <div>
           <div>
