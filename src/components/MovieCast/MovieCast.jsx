@@ -9,6 +9,7 @@ const MovieCast = () => {
   const [movieCredits, setMovieCredits] = useState(null);
 
   useEffect(() => {
+    if (!movieId) return;
     const getMovieCredits = async () => {
       const response = await fetchCredits(movieId);
       setMovieCredits(response);

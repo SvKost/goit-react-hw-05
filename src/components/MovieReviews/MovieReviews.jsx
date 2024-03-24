@@ -3,14 +3,31 @@ import { fetchReviews } from "../../services/movies-api";
 import { useParams } from "react-router-dom";
 
 const MovieReviews = () => {
+  const [movieReviews, setMovieReviews] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const { movieId } = useParams();
 
-  const [movieReviews, setMovieReviews] = useState(null);
-
   useEffect(() => {
+    if (!movieId) return;
     const getMovieReviews = async () => {
-      const response = await fetchReviews(movieId);
-      setMovieReviews(response);
+      try {
+        setIsError(false);
+        setIsLoading(true);
+        setMovieReviews(null);
+
+        const response = await fetchReviews(movieId);
+        if (response.length === 0) {
+          setIsError("Sorry, there are no reviews for this movie");
+          setMovieReviews(null);
+        } else {
+          setMovieReviews(response);
+        }
+      } catch (error) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     getMovieReviews();

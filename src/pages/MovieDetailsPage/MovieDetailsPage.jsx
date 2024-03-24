@@ -16,11 +16,22 @@ const MovieDetailsPage = () => {
   const location = useLocation();
   const backLinkHref = location.state?.from ?? "/movies";
   const [movieDetails, setMovieDetails] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(null);
 
   useEffect(() => {
+    if (!movieId) return;
     const getMovieDetails = async () => {
-      const response = await fetchMovieById(movieId);
-      setMovieDetails(response);
+      try {
+        setIsError(null);
+        setIsLoading(true);
+        const response = await fetchMovieById(movieId);
+        setMovieDetails(response);
+      } catch (error) {
+        setIsError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     getMovieDetails();
@@ -28,13 +39,9 @@ const MovieDetailsPage = () => {
 
   return (
     <div>
+      <BackLink to={backLinkHref}>Back</BackLink>
       {movieDetails !== null && movieDetails.length !== 0 && (
         <div>
-          <BackLink to={backLinkHref}>Back</BackLink>
-
-          {/* <NavLink to={backlinkRef}>
-            <button>Go back</button>
-          </NavLink> */}
           <div>
             <img
               src={`https://image.tmdb.org/t/p/w500/${movieDetails.backdrop_path}`}
@@ -48,9 +55,11 @@ const MovieDetailsPage = () => {
             <h3>Genres</h3>
             <div>
               {movieDetails.genres &&
-                movieDetails.genres.map((genre) => (
-                  <li key={genre.id}>{genre.name}</li>
-                ))}
+                movieDetails.genres
+                  .map((genre) => {
+                    return genre.name;
+                  })
+                  .join(",")}
             </div>
           </div>
           <div>

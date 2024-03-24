@@ -4,20 +4,20 @@ import MovieList from "../../components/MovieList/MovieList";
 import { useSearchParams } from "react-router-dom";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-import { Loader } from "../../components/ErrorMessage/Loader/Loader";
+import { Loader } from "../../components/Loader/Loader";
 
 const MoviesPage = () => {
   const [movieData, setMovieData] = useState(null);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const searchQuery = searchParams.get("query") ?? "";
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get("query") ?? "";
 
   useEffect(() => {
     if (searchQuery === null) return;
     const getMovieDetails = async () => {
       try {
-        setIsError(false);
+        setIsError(null);
         setIsLoading(true);
         setMovieData(null);
 
@@ -31,13 +31,15 @@ const MoviesPage = () => {
           setMovieData(response);
         }
       } catch (error) {
-        setIsError(true);
+        setIsError(
+          "Sorry, there are no movies matching your search query. Please try again!"
+        );
       } finally {
         setIsLoading(false);
       }
     };
     getMovieDetails();
-  }, [setMovieData, searchQuery]);
+  }, [searchQuery]);
 
   const handleSearch = (query) => {
     const nextParams = query !== "" ? { query } : {};
@@ -47,9 +49,8 @@ const MoviesPage = () => {
   return (
     <div>
       <SearchForm onSearch={handleSearch} />
-      {isError && <ErrorMessage message={setIsError} />}
       {isLoading && <Loader />}
-
+      {isError && <ErrorMessage message={isError} />}
       {movieData !== null && movieData.length !== 0 && (
         <MovieList data={movieData} />
       )}
