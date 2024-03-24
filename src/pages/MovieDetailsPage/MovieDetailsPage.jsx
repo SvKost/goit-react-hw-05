@@ -10,8 +10,7 @@ import { fetchMovieById } from "../../services/movies-api";
 import { Loader } from "../../components/Loader/Loader";
 import BackLink from "../../components/BackLink/BackLink";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-// import MovieCast from "../../components/MovieCast/MovieCast";
-// import MovieReviews from "../../components/MovieReviews/MovieReviews";
+import defaultImg from "../../assets/img/image-not-found.png";
 
 const MovieCast = lazy(() => import("../../components/MovieCast/MovieCast"));
 const MovieReviews = lazy(() =>
@@ -53,7 +52,11 @@ const MovieDetailsPage = () => {
         <div>
           <div>
             <img
-              src={`https://image.tmdb.org/t/p/w500/${movieDetails.backdrop_path}`}
+              src={
+                movieDetails.poster_path
+                  ? `https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`
+                  : defaultImg
+              }
               alt={`Poster for ${movieDetails.title}`}
             />
             <h1>{movieDetails.title}</h1>

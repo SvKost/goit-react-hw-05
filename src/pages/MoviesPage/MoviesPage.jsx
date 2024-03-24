@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { fetchMoviesByQuery } from "../../services/movies-api";
-import MovieList from "../../components/MovieList/MovieList";
 import { useSearchParams } from "react-router-dom";
+import { Loader } from "../../components/Loader/Loader";
+import MovieList from "../../components/MovieList/MovieList";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-import { Loader } from "../../components/Loader/Loader";
+import css from "./MoviesPage.module.css";
 
 const MoviesPage = () => {
   const [movieData, setMovieData] = useState(null);
@@ -46,7 +47,7 @@ const MoviesPage = () => {
   };
 
   return (
-    <div>
+    <div className={css.container}>
       <SearchForm onSearch={handleSearch} />
       {isLoading && <Loader />}
       {isError && <ErrorMessage message={isError} />}

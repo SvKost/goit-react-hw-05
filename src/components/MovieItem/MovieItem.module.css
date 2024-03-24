@@ -1,0 +1,15 @@
+.movieDescription {
+  background-color: #5253529a;
+  padding: 7px;
+}
+.movieTitle {
+  font-size: 17px;
+  width: -webkit-fill-available;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 238px;
+}
+.movieText {
+  font-size: 15px;
+}
