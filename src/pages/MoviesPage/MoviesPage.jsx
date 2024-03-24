@@ -14,14 +14,15 @@ const MoviesPage = () => {
   const searchQuery = searchParams.get("query") ?? "";
 
   useEffect(() => {
-    if (searchQuery === null) return;
-    const getMovieDetails = async () => {
+    if (!searchParams) return;
+    const getMovieByQuery = async () => {
       try {
-        setIsError(null);
+        setIsError(false);
         setIsLoading(true);
         setMovieData(null);
 
         const response = await fetchMoviesByQuery(searchQuery);
+        setMovieData(response);
         if (response.length === 0) {
           setIsError(
             "Sorry, there are no movies matching your search query. Please try again!"
@@ -31,15 +32,13 @@ const MoviesPage = () => {
           setMovieData(response);
         }
       } catch (error) {
-        setIsError(
-          "Sorry, there are no movies matching your search query. Please try again!"
-        );
+        setIsError(true);
       } finally {
         setIsLoading(false);
       }
     };
-    getMovieDetails();
-  }, [searchQuery]);
+    getMovieByQuery();
+  }, [searchQuery, searchParams]);
 
   const handleSearch = (query) => {
     const nextParams = query !== "" ? { query } : {};

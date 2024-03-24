@@ -16,11 +16,10 @@ const MovieReviews = () => {
       try {
         setIsError(false);
         setIsLoading(true);
-        setMovieReviews(null);
 
         const response = await fetchReviews(movieId);
         if (response.length === 0) {
-          setIsError("Sorry, there are no reviews for this movie");
+          setIsError("Sorry, there are no reviews for this movie.");
           setMovieReviews(null);
         } else {
           setMovieReviews(response);

@@ -5,13 +5,18 @@ import {
   useLocation,
   useParams,
 } from "react-router-dom";
-import MovieCast from "../../components/MovieCast/MovieCast";
-import MovieReviews from "../../components/MovieReviews/MovieReviews";
-import { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { fetchMovieById } from "../../services/movies-api";
-import BackLink from "../../components/BackLink/BackLink";
 import { Loader } from "../../components/Loader/Loader";
+import BackLink from "../../components/BackLink/BackLink";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+// import MovieCast from "../../components/MovieCast/MovieCast";
+// import MovieReviews from "../../components/MovieReviews/MovieReviews";
+
+const MovieCast = lazy(() => import("../../components/MovieCast/MovieCast"));
+const MovieReviews = lazy(() =>
+  import("../../components/MovieReviews/MovieReviews")
+);
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -73,10 +78,12 @@ const MovieDetailsPage = () => {
               <NavLink to="cast">Cast</NavLink>
               <NavLink to="reviews">Reviews</NavLink>
             </ul>
-            <Routes>
-              <Route path="cast" element={<MovieCast />} />
-              <Route path="reviews" element={<MovieReviews />} />
-            </Routes>
+            <Suspense>
+              <Routes>
+                <Route path="cast" element={<MovieCast />} />
+                <Route path="reviews" element={<MovieReviews />} />
+              </Routes>
+            </Suspense>
           </div>
         </div>
       )}
