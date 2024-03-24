@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { fetchReviews } from "../../services/movies-api";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { Loader } from "../Loader/Loader";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
-  const location = useLocation();
-  const backLinkHref = location.state?.from ?? "/movies";
   const [movieReviews, setMovieReviews] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
