@@ -5,10 +5,9 @@ import {
   useLocation,
   useParams,
 } from "react-router-dom";
-import { Suspense, lazy, useEffect, useState } from "react";
+import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { fetchMovieById } from "../../services/movies-api";
 import { Loader } from "../../components/Loader/Loader";
-import BackLink from "../../components/BackLink/BackLink";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import defaultImg from "../../assets/img/image-not-found.png";
 
@@ -20,7 +19,7 @@ const MovieReviews = lazy(() =>
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? "/movies";
+  const backLinkRef = useRef(location.state?.from ?? "/movies");
   const [movieDetails, setMovieDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
@@ -28,9 +27,9 @@ const MovieDetailsPage = () => {
   useEffect(() => {
     if (!movieId) return;
     const getMovieDetails = async () => {
+      setIsError(null);
+      setIsLoading(true);
       try {
-        setIsError(null);
-        setIsLoading(true);
         const response = await fetchMovieById(movieId);
         setMovieDetails(response);
       } catch (error) {
@@ -45,7 +44,7 @@ const MovieDetailsPage = () => {
 
   return (
     <div>
-      <BackLink to={backLinkHref}>Back</BackLink>
+      <NavLink to={backLinkRef.current}>Back</NavLink>
       {isLoading && <Loader />}
       {isError && <ErrorMessage message={isError} />}
       {movieDetails !== null && movieDetails.length !== 0 && (
@@ -75,13 +74,15 @@ const MovieDetailsPage = () => {
             </div>
           </div>
           <div>
-            <p>Additional information</p>
-
-            <ul>
-              <NavLink to="cast">Cast</NavLink>
-              <NavLink to="reviews">Reviews</NavLink>
-            </ul>
-            <Suspense>
+            <div>
+              <NavLink to="cast" state={{ from: backLinkRef.current }}>
+                Cast
+              </NavLink>
+              <NavLink to="reviews" state={{ from: backLinkRef.current }}>
+                Reviews
+              </NavLink>
+            </div>
+            <Suspense fallback={<Loader />}>
               <Routes>
                 <Route path="cast" element={<MovieCast />} />
                 <Route path="reviews" element={<MovieReviews />} />
