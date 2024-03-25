@@ -53,10 +53,10 @@ const MovieDetailsPage = () => {
     <div className={css.container}>
       {isLoading && <Loader />}
       {isError && <ErrorMessage message={isError} />}
+      <BackLink to={backLinkRef.current}>Back</BackLink>
       {movieDetails !== null && movieDetails.length !== 0 && (
         <div className={css.movieContainer}>
           <div className={css.movieContainerUp}>
-            <BackLink to={backLinkRef.current}>Back</BackLink>
             <img
               width={300}
               src={
