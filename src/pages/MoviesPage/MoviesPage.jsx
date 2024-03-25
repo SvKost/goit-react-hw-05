@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchMoviesByQuery } from "../../services/movies-api";
 import { useSearchParams } from "react-router-dom";
 import { Loader } from "../../components/Loader/Loader";
+import toast, { Toaster } from "react-hot-toast";
 import MovieList from "../../components/MovieList/MovieList";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
@@ -14,26 +15,26 @@ const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get("query") ?? "";
 
+  const notify = () =>
+    toast(
+      "Sorry, there are no movies matching your search query. Please try again!",
+      {
+        position: "top-right",
+      }
+    );
+
   useEffect(() => {
     if (!searchParams) return;
     const getMovieByQuery = async () => {
+      setIsLoading(true);
+      setIsError(false);
+      setMovieData(null);
       try {
-        setIsError(false);
-        setIsLoading(true);
-        setMovieData(null);
-
         const response = await fetchMoviesByQuery(searchQuery);
         setMovieData(response);
-        if (response.length === 0) {
-          setIsError(
-            "Sorry, there are no movies matching your search query. Please try again!"
-          );
-          setMovieData(null);
-        } else {
-          setMovieData(response);
-        }
       } catch (error) {
-        setIsError(true);
+        setIsError(error.message);
+        notify();
       } finally {
         setIsLoading(false);
       }
@@ -51,6 +52,7 @@ const MoviesPage = () => {
       <SearchForm onSearch={handleSearch} />
       {isLoading && <Loader />}
       {isError && <ErrorMessage message={isError} />}
+      <Toaster />
       {movieData !== null && movieData.length !== 0 && (
         <MovieList data={movieData} />
       )}
