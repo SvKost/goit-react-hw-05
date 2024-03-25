@@ -4,6 +4,8 @@ import { fetchCredits } from "../../services/movies-api";
 import { useState } from "react";
 import { Loader } from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import css from "./MovieCast.module.css";
+import defaultImg from "../../assets/img/image-not-found.png";
 
 const MovieCast = () => {
   const { movieId } = useParams();
@@ -42,15 +44,25 @@ const MovieCast = () => {
       {isError && <ErrorMessage message={isError} />}
 
       {movieCredits !== null && movieCredits.length !== 0 && (
-        <ul>
+        <ul className={css.container}>
           {movieCredits.cast.map((item) => (
-            <li key={item.id}>
+            <li className={css.actorItem} key={item.id}>
               <img
-                src={`https://image.tmdb.org/t/p/w500/${item.profile_path}`}
+                src={
+                  item.profile_path
+                    ? `https://image.tmdb.org/t/p/w500/${item.profile_path}`
+                    : defaultImg
+                }
                 alt={`Photo of ${item.original_name}`}
+                width="200px"
+                height="300px"
               />
-              <p>{item.original_name}</p>
-              <p>Character: {item.character}</p>
+              <div className={css.actorDesc}>
+                <h3 className={css.actorName}>{item.original_name}</h3>
+                <p className={css.actorCharacter}>
+                  <span>Character:</span> {item.character}
+                </p>
+              </div>
             </li>
           ))}
         </ul>

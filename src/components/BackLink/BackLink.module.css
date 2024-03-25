@@ -1,0 +1,24 @@
+.backlink {
+  display: flex;
+  width: 15%;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 15px;
+  line-height: 1.2;
+  font-size: 16px;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  color: #f6f6f6;
+  background-color: #7e847f;
+  transition: all 0.25s ease-in-out;
+  margin-bottom: 15px;
+}
+
+.backlink:hover,
+.backlink:focus,
+.backlink:active {
+  background-color: #5f6560;
+}

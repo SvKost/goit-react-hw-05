@@ -7,9 +7,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 211px;
+  width: 30%;
   height: 52px;
-  border-radius: 60px;
+  border-radius: 15px;
   padding: 8px;
   color: #f6f6f6;
   background-color: #7e847f;
@@ -21,7 +21,7 @@
   justify-content: center;
   width: 90px;
   height: 36px;
-  border-radius: 30px;
+  border-radius: 15px;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .link:hover {
@@ -30,5 +30,5 @@
 .active {
   color: #1b1b1b;
   background-color: #fff;
-  border-radius: 60px;
+  border-radius: 15px;
 }

@@ -1,8 +1,9 @@
-/* .container {
+.container {
   padding: 15px;
 }
 .movieContainer {
   margin-top: 20px;
+  color: black;
 }
 .movieContainerUp {
   display: flex;
@@ -10,31 +11,61 @@
 }
 .movieContainerUp img {
   border-radius: 5px;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   height: 450px;
 }
-.movieInf {
+
+.movieDesc {
   text-align: left;
   max-width: 600px;
 }
-.movieInf h1 {
+.movieDesc h1 {
   margin-bottom: 15px;
 }
-.movieInf p {
+.movieDesc p {
   margin-bottom: 7px;
 }
-.movieInf p span {
+.movieDesc p span {
   font-weight: 700;
   padding-right: 10px;
 }
 
-.additInfoList {
+.additionalContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
 }
+.additionalBtn {
+  display: flex;
+  width: 15%;
+  padding: 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 15px;
+  line-height: 1.2;
+  font-size: 16px;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  color: #f6f6f6;
+  background-color: #7e847f;
+  transition: all 0.25s ease-in-out;
+  margin-bottom: 15px;
+}
 
+/* .additionalBtn:hover,
+.additionalBtn:focus,
+.additionalBtn:active {
+  background-color: #5f6560;
+} */
+
+.active {
+  color: #1b1b1b;
+  background-color: #fff;
+}
+/*
 .link {
   display: flex;
   align-items: center;
@@ -60,6 +91,8 @@
   border-bottom: 1px solid #f6f6f6;
   padding: 20px 0;
 }
+*/
+
 @media screen and (max-width: 768px) {
   .movieContainerUp {
     display: block;
@@ -69,4 +102,4 @@
     margin: 0 auto;
     margin-bottom: 10px;
   }
-} */
+}

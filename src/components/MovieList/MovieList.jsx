@@ -8,7 +8,7 @@ const MovieList = ({ data }) => {
   return (
     <div>
       {data.length > 0 && (
-        <ul className={css.listContainer}>
+        <ul className={css.container}>
           {data.map((item) => {
             return (
               <li key={item.id} className={css.movieItem}>

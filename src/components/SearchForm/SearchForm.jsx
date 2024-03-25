@@ -1,5 +1,5 @@
 import toast, { Toaster } from "react-hot-toast";
-// import css from "./SearchForm.module.css";
+import css from "./SearchForm.module.css";
 
 export default function SearchForm({ onSearch }) {
   const notify = () =>
@@ -23,15 +23,18 @@ export default function SearchForm({ onSearch }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className={css.searchForm} onSubmit={handleSubmit}>
         <input
+          className={css.searchInput}
           type="text"
           autoComplete="off"
           name="query"
           autoFocus
           placeholder="Search movie"
         />
-        <button type="submit">Search</button>
+        <button className={css.searchBtn} type="submit">
+          Search
+        </button>
       </form>
       <Toaster />
     </>

@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: baseline;
+  margin-top: 30px;
+}
+
+.actorItem {
+  border-radius: 5px;
+  border: 1px solid rgb(0, 22, 0);
+  width: 200px;
+}
+
+.actorDesc {
+  background-color: #5253529a;
+  padding: 3px;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actorName {
+  font-weight: 700;
+  overflow: hidden;
+}
+
+.actorCharacter {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actorCharacter span {
+  font-weight: 700;
+}

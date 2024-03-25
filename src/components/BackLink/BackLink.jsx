@@ -1,11 +1,13 @@
-// import css from "./BackLink.module.css";
-// import { BiArrowBack } from "react-icons/bi";
-import { Link } from "react-router-dom";
-export default function BackLink({ to, children }) {
+import { useRef } from "react";
+import css from "./BackLink.module.css";
+import { NavLink, useLocation } from "react-router-dom";
+// import { BiArrowBack } from "react-icons/bi";uter-dom";
+
+export default function BackLink({children }) {
+  const location = useLocation();
+  const backLinkRef = useRef(location.state?.from ?? "/movies");
+
   return (
-    <Link to={to}>
-      {/* <BiArrowBack /> */}
-      {children}
-    </Link>
+    <NavLink className={css.backlink} to={backLinkRef.current}>{children}</NavLink>
   );
 }

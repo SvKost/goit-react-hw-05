@@ -3,6 +3,7 @@ import { fetchReviews } from "../../services/movies-api";
 import { useParams } from "react-router-dom";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { Loader } from "../Loader/Loader";
+import css from "./MovieReviews.module.css";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
@@ -35,20 +36,20 @@ const MovieReviews = () => {
   }, [movieId]);
 
   return (
-    <div>
+    <>
       {isLoading && <Loader />}
       {isError && <ErrorMessage message={isError} />}
       {movieReviews !== null && movieReviews.length !== 0 && (
-        <ul>
+        <ul className={css.container}>
           {movieReviews.map(({ id, author, content }) => (
-            <li key={id}>
-              <h3>Author: {author}</h3>
-              <p>{content}</p>
+            <li className={css.reviewItem} key={id}>
+              <h3 className={css.reviewAuthor}>Author: {author}</h3>
+              <p className={css.reviewText}>{content}</p>
             </li>
           ))}
         </ul>
       )}
-    </div>
+    </>
   );
 };
 

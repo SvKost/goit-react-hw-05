@@ -1,0 +1,13 @@
+.container {
+  margin-top: 20px;
+  text-align: left;
+}
+.reviewItem {
+  margin-bottom: 15px;
+}
+.reviewAuthor {
+  margin-bottom: 2px;
+}
+.reviewText {
+  font-size: 14px;
+}

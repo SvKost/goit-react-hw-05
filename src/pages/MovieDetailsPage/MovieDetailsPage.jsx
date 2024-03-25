@@ -10,11 +10,18 @@ import { fetchMovieById } from "../../services/movies-api";
 import { Loader } from "../../components/Loader/Loader";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import defaultImg from "../../assets/img/image-not-found.png";
+import BackLink from "../../components/BackLink/BackLink";
+import clsx from "clsx";
+import css from "./MovieDetailsPage.module.css";
 
 const MovieCast = lazy(() => import("../../components/MovieCast/MovieCast"));
 const MovieReviews = lazy(() =>
   import("../../components/MovieReviews/MovieReviews")
 );
+
+const buildLinkClass = ({ isActive }) => {
+  return clsx(css.additionalBtn, isActive && css.active);
+};
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -43,14 +50,15 @@ const MovieDetailsPage = () => {
   }, [movieId]);
 
   return (
-    <div>
-      <NavLink to={backLinkRef.current}>Back</NavLink>
+    <div className={css.container}>
+      <BackLink to={backLinkRef.current}>Back</BackLink>
       {isLoading && <Loader />}
       {isError && <ErrorMessage message={isError} />}
       {movieDetails !== null && movieDetails.length !== 0 && (
-        <div>
-          <div>
+        <div className={css.movieContainer}>
+          <div className={css.movieContainerUp}>
             <img
+              width={300}
               src={
                 movieDetails.poster_path
                   ? `https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`
@@ -58,27 +66,38 @@ const MovieDetailsPage = () => {
               }
               alt={`Poster for ${movieDetails.title}`}
             />
-            <h1>{movieDetails.title}</h1>
-            <p>User score: {movieDetails.vote_average}</p>
-            <h2>Overview</h2>
-            <p>{movieDetails.overview}</p>
 
-            <h3>Genres</h3>
-            <div>
-              {movieDetails.genres &&
-                movieDetails.genres
-                  .map((genre) => {
-                    return genre.name;
-                  })
-                  .join(",")}
+            <div className={css.movieDesc}>
+              <h1>{movieDetails.title}</h1>
+              <p>User score: {movieDetails.vote_average}</p>
+              <h2>Overview</h2>
+              <p>{movieDetails.overview}</p>
+
+              <h3>Genres</h3>
+              <div>
+                {movieDetails.genres &&
+                  movieDetails.genres
+                    .map((genre) => {
+                      return genre.name;
+                    })
+                    .join(", ")}
+              </div>
             </div>
           </div>
           <div>
-            <div>
-              <NavLink to="cast" state={{ from: backLinkRef.current }}>
+            <div className={css.additionalContainer}>
+              <NavLink
+                className={buildLinkClass}
+                to="cast"
+                state={{ from: backLinkRef.current }}
+              >
                 Cast
               </NavLink>
-              <NavLink to="reviews" state={{ from: backLinkRef.current }}>
+              <NavLink
+                className={buildLinkClass}
+                to="reviews"
+                state={{ from: backLinkRef.current }}
+              >
                 Reviews
               </NavLink>
             </div>
