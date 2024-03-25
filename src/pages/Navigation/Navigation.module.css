@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30%;
+  min-width: 150px;
   height: 52px;
   border-radius: 15px;
   padding: 8px;

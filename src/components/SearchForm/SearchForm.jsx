@@ -30,7 +30,7 @@ export default function SearchForm({ onSearch }) {
           autoComplete="off"
           name="query"
           autoFocus
-          placeholder="Search movie"
+          placeholder="Enter movie name"
         />
         <button className={css.searchBtn} type="submit">
           Search

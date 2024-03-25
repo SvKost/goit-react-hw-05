@@ -51,12 +51,12 @@ const MovieDetailsPage = () => {
 
   return (
     <div className={css.container}>
-      <BackLink to={backLinkRef.current}>Back</BackLink>
       {isLoading && <Loader />}
       {isError && <ErrorMessage message={isError} />}
       {movieDetails !== null && movieDetails.length !== 0 && (
         <div className={css.movieContainer}>
           <div className={css.movieContainerUp}>
+            <BackLink to={backLinkRef.current}>Back</BackLink>
             <img
               width={300}
               src={
@@ -69,7 +69,9 @@ const MovieDetailsPage = () => {
 
             <div className={css.movieDesc}>
               <h1>{movieDetails.title}</h1>
-              <p>User score: {movieDetails.vote_average}</p>
+              <p>
+                User score: <b>{movieDetails.vote_average}</b>
+              </p>
               <h2>Overview</h2>
               <p>{movieDetails.overview}</p>
 
